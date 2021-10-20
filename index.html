@@ -1,6 +1,77 @@
 <html>
-  <head> </head>
+  <head>
+    <style>
+      body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        margin: 0;
+      }
+      nav {
+        background-color: gray;
+        display: flex;
+        justify-content: space-around;
+        padding: 1rem;
+      }
+      nav a {
+        color: white;
+        font-size: 2rem;
+      }
+      #container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: space-between;
+        background-color: blue;
+        height: calc(100vh - 5rem);
+      }
+      #container div {
+        border: solid 1px tomato;
+      }
+      .sm {
+        width: 25px;
+        height: 25px;
+      }
+
+      .md {
+        width: 50px;
+        height: 50px;
+      }
+
+      .lg {
+        width: 75px;
+        height: 75px;
+      }
+    </style>
+  </head>
   <body>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
     <h1>DOM DEMO</h1>
+    <div id="container"></div>
+    <script>
+      const nav = document.querySelector("nav");
+      const collect = (start) => {
+        let results = [];
+        results.push(start);
+        [...start.children].forEach(function (child) {
+          result = [...results, ...collect(child)];
+        });
+        return results;
+      };
+      collect(window.document).forEach((el) => console.log(el));
+      const random = (min, max) => Math.round(Math.random() * (max - min));
+
+      const num = random(20, 60);
+      const sizes = ["sm", "md", "lg"];
+      const container = document.querySelector("#container");
+      for (let i = 0; i < num; i++) {
+        const div = document.createElement("div");
+        div.classList.add(sizes[Math.floor(Math.random() * 3)]);
+        container.appendChild(div);
+      }
+    </script>
   </body>
 </html>
